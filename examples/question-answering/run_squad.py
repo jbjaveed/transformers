@@ -793,35 +793,35 @@ def main():
 
     # Evaluation - we can ask to evaluate all the checkpoints (sub-directories) in a directory
     results = {}
-    if args.do_eval and args.local_rank in [-1, 0]:
-        if args.do_train:
-            logger.info("Loading checkpoints saved during training for evaluation")
-            checkpoints = [args.output_dir]
-            if args.eval_all_checkpoints:
-                checkpoints = list(
-                    os.path.dirname(c)
-                    for c in sorted(glob.glob(args.output_dir + "/**/" + WEIGHTS_NAME, recursive=True))
-                )
-                logging.getLogger("transformers.modeling_utils").setLevel(logging.WARN)  # Reduce model loading logs
-        else:
-            logger.info("Loading checkpoint %s for evaluation", args.model_name_or_path)
-            checkpoints = [args.model_name_or_path]
+#     if args.do_eval and args.local_rank in [-1, 0]:
+#         if args.do_train:
+#             logger.info("Loading checkpoints saved during training for evaluation")
+#             checkpoints = [args.output_dir]
+#             if args.eval_all_checkpoints:
+#                 checkpoints = list(
+#                     os.path.dirname(c)
+#                     for c in sorted(glob.glob(args.output_dir + "/**/" + WEIGHTS_NAME, recursive=True))
+#                 )
+#                 logging.getLogger("transformers.modeling_utils").setLevel(logging.WARN)  # Reduce model loading logs
+#         else:
+#             logger.info("Loading checkpoint %s for evaluation", args.model_name_or_path)
+#             checkpoints = [args.model_name_or_path]
 
-        logger.info("Evaluate the following checkpoints: %s", checkpoints)
+#         logger.info("Evaluate the following checkpoints: %s", checkpoints)
 
-        for checkpoint in checkpoints:
-            # Reload the model
-            global_step = checkpoint.split("-")[-1] if len(checkpoints) > 1 else ""
-            model = AutoModelForQuestionAnswering.from_pretrained(checkpoint)  # , force_download=True)
-            model.to(args.device)
+#         for checkpoint in checkpoints:
+#             # Reload the model
+#             global_step = checkpoint.split("-")[-1] if len(checkpoints) > 1 else ""
+#             model = AutoModelForQuestionAnswering.from_pretrained(checkpoint)  # , force_download=True)
+#             model.to(args.device)
 
-            # Evaluate
-            result = evaluate(args, model, tokenizer, prefix=global_step)
+#             # Evaluate
+#             result = evaluate(args, model, tokenizer, prefix=global_step)
 
-            result = dict((k + ("_{}".format(global_step) if global_step else ""), v) for k, v in result.items())
-            results.update(result)
+#             result = dict((k + ("_{}".format(global_step) if global_step else ""), v) for k, v in result.items())
+#             results.update(result)
 
-    logger.info("Results: {}".format(results))
+#     logger.info("Results: {}".format(results))
 
     return results
 
