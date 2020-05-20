@@ -240,7 +240,7 @@ def quac_convert_example_to_features(example, max_seq_length, doc_stride, max_qu
                 end_position = tok_end_position - doc_start + doc_offset
 
         features.append(
-            quacFeatures(
+            QuacFeatures(
                 span["input_ids"],
                 span["attention_mask"],
                 span["token_type_ids"],
@@ -282,7 +282,7 @@ def quac_convert_examples_to_features(
     It is model-dependant and takes advantage of many of the tokenizer's features to create the model's inputs.
 
     Args:
-        examples: list of :class:`~transformers.data.processors.quac.quacExample`
+        examples: list of :class:`~transformers.data.processors.quac.QuacExample`
         tokenizer: an instance of a child of :class:`~transformers.PreTrainedTokenizer`
         max_seq_length: The maximum sequence length of the inputs.
         doc_stride: The stride used when the context is too large and is split across several features.
@@ -295,7 +295,7 @@ def quac_convert_examples_to_features(
 
 
     Returns:
-        list of :class:`~transformers.data.processors.quac.quacFeatures`
+        list of :class:`~transformers.data.processors.quac.QuacFeatures`
 
     Example::
 
@@ -442,10 +442,10 @@ def quac_convert_examples_to_features(
         return features
 
 
-class quacProcessor(DataProcessor):
+class QuacProcessor(DataProcessor):
     """
     Processor for the quac data set.
-    Overriden by quacV1Processor and quacV2Processor, used by the version 1.1 and version 2.0 of quac, respectively.
+    Overriden by QuacV1Processor and QuacV2Processor, used by the version 1.1 and version 2.0 of quac, respectively.
     """
 
     train_file = None
@@ -465,7 +465,7 @@ class quacProcessor(DataProcessor):
             answer = None
             answer_start = None
 
-        return quacExample(
+        return QuacExample(
             qas_id=tensor_dict["id"].numpy().decode("utf-8"),
             question_text=tensor_dict["question"].numpy().decode("utf-8"),
             context_text=tensor_dict["context"].numpy().decode("utf-8"),
@@ -477,14 +477,14 @@ class quacProcessor(DataProcessor):
 
     def get_examples_from_dataset(self, dataset, evaluate=False):
         """
-        Creates a list of :class:`~transformers.data.processors.quac.quacExample` using a TFDS dataset.
+        Creates a list of :class:`~transformers.data.processors.quac.QuacExample` using a TFDS dataset.
 
         Args:
             dataset: The tfds dataset loaded from `tensorflow_datasets.load("quac")`
             evaluate: boolean specifying if in evaluation mode or in training mode
 
         Returns:
-            List of quacExample
+            List of QuacExample
 
         Examples::
 
@@ -520,7 +520,7 @@ class quacProcessor(DataProcessor):
             data_dir = ""
 
         if self.train_file is None:
-            raise ValueError("quacProcessor should be instantiated via quacV1Processor or quacV2Processor")
+            raise ValueError("QuacProcessor should be instantiated via QuacV1Processor or QuacV2Processor")
 
         with open(
             os.path.join(data_dir, self.train_file if filename is None else filename), "r", encoding="utf-8"
@@ -541,7 +541,7 @@ class quacProcessor(DataProcessor):
             data_dir = ""
 
         if self.dev_file is None:
-            raise ValueError("quacProcessor should be instantiated via quacV1Processor or quacV2Processor")
+            raise ValueError("QuacProcessor should be instantiated via QuacV1Processor or QuacV2Processor")
 
         with open(
             os.path.join(data_dir, self.dev_file if filename is None else filename), "r", encoding="utf-8"
@@ -576,7 +576,7 @@ class quacProcessor(DataProcessor):
                         else:
                             answers = qa["answers"]
 
-                    example = quacExample(
+                    example = QuacExample(
                         qas_id=qas_id,
                         question_text=question_text,
                         context_text=context_text,
@@ -591,17 +591,17 @@ class quacProcessor(DataProcessor):
         return examples
 
 
-class quacV1Processor(quacProcessor):
+class QuacV1Processor(QuacProcessor):
     train_file = "train-v1.1.json"
     dev_file = "dev-v1.1.json"
 
 
-class quacV2Processor(quacProcessor):
+class QuacV2Processor(QuacProcessor):
     train_file = "quac_traintest.json"
     dev_file = "quac_dev.json"
 
 
-class quacExample(object):
+class QuacExample(object):
     """
     A single training/test example for the quac dataset, as loaded from disk.
 
@@ -664,10 +664,10 @@ class quacExample(object):
             ]
 
 
-class quacFeatures(object):
+class QuacFeatures(object):
     """
     Single quac example features to be fed to a model.
-    Those features are model-specific and can be crafted from :class:`~transformers.data.processors.quac.quacExample`
+    Those features are model-specific and can be crafted from :class:`~transformers.data.processors.quac.QuacExample`
     using the :method:`~transformers.data.processors.quac.quac_convert_examples_to_features` method.
 
     Args:
@@ -726,9 +726,9 @@ class quacFeatures(object):
         self.qas_id = qas_id
 
 
-class quacResult(object):
+class QuacResult(object):
     """
-    Constructs a quacResult which can be used to evaluate a model's output on the quac dataset.
+    Constructs a QuacResult which can be used to evaluate a model's output on the quac dataset.
 
     Args:
         unique_id: The unique identifier corresponding to that example.
