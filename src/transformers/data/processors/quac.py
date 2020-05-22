@@ -597,8 +597,8 @@ class QuacV1Processor(QuacProcessor):
 
 
 class QuacV2Processor(QuacProcessor):
-    train_file = "quac_traintest.json"
-    dev_file = "quac_dev.json"
+    train_file = "quac_test_train.json"
+    dev_file = "quac_test_dev.json"
 
 
 class QuacExample(object):
