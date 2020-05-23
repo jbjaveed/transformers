@@ -349,7 +349,7 @@ def evaluate(args, model, tokenizer, prefix=""):
                 start_logits, end_logits = output
                 result = QuacResult(unique_id, start_logits, end_logits)
                 print('-------------')
-                print('start_logits'result.start_logits)
+                print('start_logits',result.start_logits)
                 print('end_logits',result.end_logits)
                 print('unique_id',result.unique_id)
 
