@@ -384,6 +384,8 @@ def compute_predictions_logits(
     tokenizer,
 ):
     """Write final predictions to the json file and log-odds of null if needed."""
+    print(all_examples,all_results)
+
     if output_prediction_file:
         logger.info(f"Writing predictions to: {output_prediction_file}")
     if output_nbest_file:
