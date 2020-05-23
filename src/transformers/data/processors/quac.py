@@ -527,7 +527,6 @@ class QuacProcessor(DataProcessor):
         ) as reader:
             input_data = json.load(reader)["data"]
         examples=self._create_examples(input_data, "train")
-        exit()
 
     def get_dev_examples(self, data_dir, filename=None):
         """
