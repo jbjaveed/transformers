@@ -590,7 +590,7 @@ class SquadProcessor(DataProcessor):
 
                     examples.append(example)
         print('---------------')
-        print(examples)
+        print(vars(examples))
         return examples
 
 
