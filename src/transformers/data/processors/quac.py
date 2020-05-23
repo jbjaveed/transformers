@@ -563,10 +563,10 @@ class QuacProcessor(DataProcessor):
                     start_position_character = None
                     answer_text = None
                     answers = []
-                    is_impossible=True
+                    is_impossible=False
 
-                    if qa["answers"][0]=='CANNOTANSWER':
-                        is_impossible = False
+                    if qa["answers"][0]['test']=='CANNOTANSWER':
+                        is_impossible = True
                
                
                     if not is_impossible:
