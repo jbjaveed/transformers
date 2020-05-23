@@ -526,7 +526,7 @@ class QuacProcessor(DataProcessor):
             os.path.join(data_dir, self.train_file if filename is None else filename), "r", encoding="utf-8"
         ) as reader:
             input_data = json.load(reader)["data"]
-        examples=self._create_examples(input_data, "train")
+        return self._create_examples(input_data, "train")
 
     def get_dev_examples(self, data_dir, filename=None):
         """
