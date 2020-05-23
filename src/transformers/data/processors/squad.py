@@ -589,8 +589,6 @@ class SquadProcessor(DataProcessor):
                     )
 
                     examples.append(example)
-        print('---------------')
-        print(vars(examples))
         return examples
 
 
