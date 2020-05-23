@@ -565,7 +565,7 @@ class QuacProcessor(DataProcessor):
                     answers = []
                     is_impossible=False
 
-                    if qa["answers"][0]['test']=='CANNOTANSWER':
+                    if qa["answers"][0]['text']=='CANNOTANSWER':
                         is_impossible = True
                
                
