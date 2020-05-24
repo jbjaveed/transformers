@@ -558,7 +558,7 @@ class QuacProcessor(DataProcessor):
         examples = []
         for entry in tqdm(input_data):
             for paragraph in entry["paragraphs"]:
-                title = entry["title"]
+                title = paragraph["title"]
                 context_text = paragraph["context"]
                 for qa in paragraph["qas"]:
                     qas_id = qa["id"]
