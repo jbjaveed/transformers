@@ -556,55 +556,54 @@ class QuacProcessor(DataProcessor):
     def _create_examples(self, input_data, set_type):
         is_training = set_type == "train"
         examples = []
-        for entry in tqdm(input_data):
-            for paragraph in entry["paragraphs"]:
-                title = paragraph["title"]
-                context_text = paragraph["context"]
-                for qa in paragraph["qas"]:
-                    qas_id = qa["id"]
-                    question_text = qa["question"]
-                    start_position_character = None
-                    answer_text = None
-                    answers = []
-                    is_impossible=False
+        for paragraph in tqdm(input_data):
+            title = paragraph["title"]
+            context_text = paragraph["context"]
+            for qa in paragraph["qas"]:
+                qas_id = qa["id"]
+                question_text = qa["question"]
+                start_position_character = None
+                answer_text = None
+                answers = []
+                is_impossible=False
 
-                    if qa["answers"][0]['text']=='CANNOTANSWER':
-                        is_impossible = True
-               
-               
-                    if not is_impossible:
-                        if is_training:
-                            answer = qa["orig_answer"]
-                            answer_text = answer["text"]
-                            start_position_character = answer["answer_start"]
-                        else:
-                            answers = qa["answers"]
+                if qa["answers"][0]['text']=='CANNOTANSWER':
+                    is_impossible = True
+            
+            
+                if not is_impossible:
+                    if is_training:
+                        answer = qa["orig_answer"]
+                        answer_text = answer["text"]
+                        start_position_character = answer["answer_start"]
+                    else:
+                        answers = qa["answers"]
 
-                    example = QuacExample(
-                        qas_id=qas_id,
-                        question_text=question_text,
-                        context_text=context_text,
-                        answer_text=answer_text,
-                        start_position_character=start_position_character,
-                        title=title,
-                        is_impossible=is_impossible,
-                        answers=answers,
-                    )
+                example = QuacExample(
+                    qas_id=qas_id,
+                    question_text=question_text,
+                    context_text=context_text,
+                    answer_text=answer_text,
+                    start_position_character=start_position_character,
+                    title=title,
+                    is_impossible=is_impossible,
+                    answers=answers,
+                )
 
-                    examples.append(example)
-                    # print('---------------')
-                    # print('qas_id',example.qas_id)
-                    # print('question_text',example.question_text)
-                    # print('context_text',example.context_text)
-                    # print('answer_text',example.answer_text)
-                    # print('title',example.title)
-                    # print('is_impossible',example.is_impossible)
-                    # print('answers',example.answers)
-                    # print('doc_tokens',example.doc_tokens)
-                    # print('char_to_word_offset',example.char_to_word_offset)
-                    # print('start_pos',example.start_position)
-                    # print('end_pos',example.end_position)
-                    # print('---------------------------')
+                examples.append(example)
+                # print('---------------')
+                # print('qas_id',example.qas_id)
+                # print('question_text',example.question_text)
+                # print('context_text',example.context_text)
+                # print('answer_text',example.answer_text)
+                # print('title',example.title)
+                # print('is_impossible',example.is_impossible)
+                # print('answers',example.answers)
+                # print('doc_tokens',example.doc_tokens)
+                # print('char_to_word_offset',example.char_to_word_offset)
+                # print('start_pos',example.start_position)
+                # print('end_pos',example.end_position)
+                # print('---------------------------')
         return examples
 
 
