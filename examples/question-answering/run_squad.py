@@ -352,7 +352,7 @@ def evaluate(args, model, tokenizer, prefix=""):
                 print('start_logits',result.start_logits)
                 print('end_logits',result.end_logits)
                 print('unique_id',result.unique_id)
-                
+
             all_results.append(result)
 
     evalTime = timeit.default_timer() - start_time
@@ -770,6 +770,7 @@ def main():
     # Training
     if args.do_train:
         train_dataset = load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=False)
+        exit()
         global_step, tr_loss = train(args, train_dataset, model, tokenizer)
         logger.info(" global_step = %s, average loss = %s", global_step, tr_loss)
 
