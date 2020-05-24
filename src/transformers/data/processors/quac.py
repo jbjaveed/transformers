@@ -311,7 +311,7 @@ def quac_convert_examples_to_features(
             is_training=not evaluate,
         )
     """
-
+    print(examples)
     # Defining helper methods
     features = []
     threads = min(threads, cpu_count())
@@ -331,6 +331,7 @@ def quac_convert_examples_to_features(
                 disable=not tqdm_enabled,
             )
         )
+    print(features)
     new_features = []
     unique_id = 1000000000
     example_index = 0

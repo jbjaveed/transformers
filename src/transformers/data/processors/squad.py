@@ -313,6 +313,8 @@ def squad_convert_examples_to_features(
     """
 
     # Defining helper methods
+    print(examples)    
+
     features = []
     threads = min(threads, cpu_count())
     with Pool(threads, initializer=squad_convert_example_to_features_init, initargs=(tokenizer,)) as p:
@@ -331,6 +333,7 @@ def squad_convert_examples_to_features(
                 disable=not tqdm_enabled,
             )
         )
+    print(features)    
     new_features = []
     unique_id = 1000000000
     example_index = 0
