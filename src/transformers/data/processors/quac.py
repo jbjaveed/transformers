@@ -556,7 +556,8 @@ class QuacProcessor(DataProcessor):
     def _create_examples(self, input_data, set_type):
         is_training = set_type == "train"
         examples = []
-        for paragraph in tqdm(input_data):
+        for entry in tqdm(input_data):
+            paragraph=entry['paragraphs'][0]
             title = paragraph["title"]
             context_text = paragraph["context"]
             for qa in paragraph["qas"]:
