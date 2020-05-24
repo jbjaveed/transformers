@@ -595,6 +595,19 @@ class SquadProcessor(DataProcessor):
                     )
 
                     examples.append(example)
+                    print('---------------')
+                    print('qas_id',example.qas_id)
+                    print('question_text',example.question_text)
+                    print('context_text',example.context_text)
+                    print('answer_text',example.answer_text)
+                    print('title',example.title)
+                    print('is_impossible',example.is_impossible)
+                    print('answers',example.answers)
+                    print('doc_tokens',example.doc_tokens)
+                    print('char_to_word_offset',example.char_to_word_offset)
+                    print('start_pos',example.start_position)
+                    print('end_pos',example.end_position)
+                    print('---------------------------')
         return examples
 
 
