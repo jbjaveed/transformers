@@ -362,7 +362,7 @@ def squad_convert_examples_to_features(
         print('***********')
         print(all_is_impossible)
         print('*************')
-
+        exit()
         if not is_training:
             all_feature_index = torch.arange(all_input_ids.size(0), dtype=torch.long)
             dataset = TensorDataset(
