@@ -754,6 +754,9 @@ def main():
     for name, param in model.named_parameters():
         if 'classifier' not in name: # classifier layer
             param.requires_grad = False
+        print(name,'-----------')
+    exit()
+    
 
     if args.local_rank == 0:
         # Make sure only the first process in distributed training will download model & vocab
