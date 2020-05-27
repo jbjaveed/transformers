@@ -751,12 +751,24 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
 
+    trainable_layers=['albert.encoder.albert_layer_groups.0.albert_layers.0.ffn_output.weight',
+                        'albert.encoder.albert_layer_groups.0.albert_layers.0.ffn_output.bias',
+                        'albert.pooler.weight',
+                        'albert.pooler.bias',
+                        'qa_outputs.weight',
+                        'qa_outputs.bias'
+                    ]
+
     for name, param in model.named_parameters():
-        if 'classifier' not in name: # classifier layer
+        present_flag=False
+        for trainable_layer in trainable_layers:
+            if trainable_layer in name:
+                present_flag=True
+                break
+        if present_flag==False:
             param.requires_grad = False
         print(name,'-----------')
-    exit()
-    
+
 
     if args.local_rank == 0:
         # Make sure only the first process in distributed training will download model & vocab
