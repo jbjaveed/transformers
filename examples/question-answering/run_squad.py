@@ -751,9 +751,9 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
 
-    # for name, param in model.named_parameters():
-	#     if 'classifier' not in name: # classifier layer
-	# 	param.requires_grad = False
+    for name, param in model.named_parameters():
+	    if 'classifier' not in name: # classifier layer
+		param.requires_grad = False
 
     if args.local_rank == 0:
         # Make sure only the first process in distributed training will download model & vocab
